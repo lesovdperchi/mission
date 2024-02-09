@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Answer Box</title>
+  <style>
+    body {
+      background-color: #3c3D33;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      text-align: center;
+      margin-top: 20px; /* Adjust the margin-top value as needed */
+    }
+
+    .answer {
+      padding: 10px;
+      font-size: 16px;
+      width: 200px;
+    }
+
+    .button {
+      padding: 10px;
+      font-size: 16px;
+      background-color: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #333;
+    }
+
+    .responseContainer {
+      margin-top: 20px;
+      padding: 15px;
+      font-size: 18px;
+      color: black; /* Set font color to black */
+      background-color: rgba(255, 255, 255, 0.15); /* 15% opacity white */
+      border-radius: 10px; /* Rounded edges */
+    }
+
+    .correct {
+      color: #2ecc71; /* Green color for correct answer */
+    }
+
+    .incorrect {
+      color: #e74c3c; /* Red color for incorrect answer */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <input type="text" id="answer" class="answer" placeholder="Type your answer here" onkeyup="checkEnter(event)">
+    <button class="button" onclick="submitAnswer()">Submit</button>
+    <div id="responseContainer" class="responseContainer"></div>
+  </div>
+
+  <script>
+    function submitAnswer() {
+      var enteredAnswer = document.getElementById("answer").value.trim().toLowerCase();
+      var responseContainer = document.getElementById("responseContainer");
+
+      enteredAnswer = escapeHtml(enteredAnswer);
+
+      // List of correct answers
+      var correctAnswers = ["socks","Socks"];
+
+      // Check if the entered answer is in the list of correct answers
+      if (correctAnswers.includes(enteredAnswer)) {
+        responseContainer.innerHTML = '<p class="correct">Yes, you are correct Type "i got it." in the comment section to let me know you solved it</p>';
+      } else {
+        responseContainer.innerHTML = '<p class="incorrect">Nope, not yet</p>';
+      }
+    }
+
+    function checkEnter(event) {
+      if (event.key === "Enter") {
+        submitAnswer();
+      }
+    }
+
+    function escapeHtml(text) {
+      var div = document.createElement('div');
+      div.innerText = text;
+      return div.innerHTML;
+    }
+  </script>
+
+</body>
+</html>
